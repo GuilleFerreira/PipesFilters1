@@ -1,6 +1,7 @@
 ﻿using System;
 using CompAndDel.Pipes;
 using CompAndDel.Filters;
+using TwitterUCU;
 
 namespace CompAndDel
 {
@@ -16,6 +17,8 @@ namespace CompAndDel
             IFilter gris = new FilterGreyscale();
             IPipe segundoserial = new PipeSerial(gris, primerserial);
             IPicture final = segundoserial.Send(picture);
+            negativo.Publicar(picture);
+            gris.Publicar(picture);
             provider.SavePicture(final, @"C:\Users\guill\Desktop\Pipes Filters1\PipesFilters1\src\Program\save.jpg");
         }
     }
