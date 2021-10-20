@@ -9,7 +9,7 @@ namespace CompAndDel.Filters
     /// https://en.wikipedia.org/wiki/Box_blur utilizando el kernel
     /// https://wikimedia.org/api/rest_v1/media/math/render/svg/91256bfeece3344f8602e288d445e6422c8b8a1c.
     /// </summary>
-    public class FilterBlurConvolution : IFilter
+    public class FilterBlurConvolution : PictureProvider, IFilter
     {
         protected int[,] kernel;
         protected int complement, divider;
@@ -50,6 +50,8 @@ namespace CompAndDel.Filters
                 }
             }
 
+            PictureProvider blur = new PictureProvider();
+            blur.SavePicture(result, @"C:\Users\guill\Desktop\Pipes Filters1\PipesFilters1\src\Program\blur.jpg");
             return result;
         }
 
@@ -96,6 +98,13 @@ namespace CompAndDel.Filters
             sample[2,2] = image.GetColor(Math.Min(x+1, image.Width - 1), Math.Min(y+1,image.Height - 1));
 
             return sample;
+        }
+
+        public IPicture Persistencia(IPicture image)
+        {
+            PictureProvider blur = new PictureProvider();
+            blur.SavePicture(image, @"src\Program\blur.jpg");
+            return image;
         }
     }
 }

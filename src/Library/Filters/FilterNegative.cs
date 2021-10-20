@@ -6,7 +6,7 @@ namespace CompAndDel.Filters
     /// <summary>
     /// Un filtro que recibe una imagen y retorna su negativo.
     /// </remarks>
-    public class FilterNegative : IFilter
+    public class FilterNegative : PictureProvider, IFilter
     {
         /// Un filtro que retorna el negativo de la imagen recibida.
         /// </summary>
@@ -36,8 +36,17 @@ namespace CompAndDel.Filters
                     result.SetColor(x, y, negativeColor);
                 }
             }
-
+            
+            PictureProvider fn = new PictureProvider();
+            fn.SavePicture(result, @"C:\Users\guill\Desktop\Pipes Filters1\PipesFilters1\src\Program\negative.jpg");
             return result;
+        }
+
+        public IPicture Persistencia(IPicture image)
+        {
+            PictureProvider fn = new PictureProvider();
+            fn.SavePicture(image, @"src\Program\negative.jpg");
+            return image;
         }
     }
 }

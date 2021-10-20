@@ -5,7 +5,7 @@ namespace CompAndDel.Filters
     /// <summary>
     /// Un filtro que recibe una imagen y la retorna en escala de grises.
     /// </remarks>
-    public class FilterGreyscale : IFilter
+    public class FilterGreyscale : PictureProvider, IFilter
     {
         /// <summary>
         /// Un filtro que retorna la imagen recibida con un filtro de escala de grises aplicado.
@@ -32,7 +32,16 @@ namespace CompAndDel.Filters
                 }
             }
 
+            PictureProvider gs = new PictureProvider();
+            gs.SavePicture(result, @"C:\Users\guill\Desktop\Pipes Filters1\PipesFilters1\src\Program\greyscale.jpg");
             return result;
         }
+    
+        public IPicture Persistencia(IPicture image)
+            {
+                PictureProvider gs = new PictureProvider();
+                gs.SavePicture(image, @"src\Program\greyscale.jpg");
+                return image;
+            }
     }
 }
